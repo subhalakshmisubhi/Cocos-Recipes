@@ -37,6 +37,27 @@ def add_recipe():
         conn.close()
         return redirect(url_for('index'))
     return render_template('add_recipe.html')
+    from flask import Flask, render_template, request, redirect, url_for
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/')
+index():
+    # your existing code...
+    pass
+
+# ---> PASTE YOUR NEW /delete/<int:id> ROUTE HERE <---
+@app.route('/delete/<int:id>', methods=('POST',))
+def delete_recipe(id):
+    conn = sqlite3.connect('database.db')
+    conn.execute('DELETE FROM recipes WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 if __name__ == '__main__':
     # Auto-initialize database table if it doesn't exist
