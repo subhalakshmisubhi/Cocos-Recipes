@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coco's Recipes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; color: #333; }
+        h1 { color: #d9534f; }
+        form { margin-bottom: 20px; }
+        input[type="text"] { padding: 8px; width: 300px; }
+        button, .btn { padding: 8px 15px; background: #0275d8; color: white; border: none; text-decoration: none; cursor: pointer; border-radius: 4px; }
+        .recipe-card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>Coco's Recipes Dashboard</h1>
+    <a href="/add" class="btn">Upload New Recipe</a>
+    <hr>
+    <form method="GET" action="/">
+        <input type="text" name="search" placeholder="Search by ingredient or title..." value="{{ search }}">
+        <button type="submit">Search</button>
+    </form>
+    
+    <h2>Recipe List</h2>
+    {% for recipe in recipes %}
+        <div class="recipe-card">
+            <h3>{{ recipe['title'] }} ({{ recipe['category'] }})</h3>
+            <p><strong>Cooking Time:</strong> {{ recipe['cooking_time'] }} | <strong>Calories:</strong> {{ recipe['calories'] }} kcal</p>
+            <p><strong>Ingredients:</strong> {{ recipe['ingredients'] }}</p>
+            <p><strong>Steps:</strong> {{ recipe['prep_steps'] }}</p>
+        </div>
+    {% else %}
+        <p>No recipes found in database. Try uploading one!</p>
+    {% endfor %}
+</body>
+</html>
+
