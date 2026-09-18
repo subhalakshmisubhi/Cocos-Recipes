@@ -1,5 +1,4 @@
 # Cocos-Recipes
-# Coco's Recipes 🍳
 
 A web-based recipe management and culinary learning platform designed to streamline recipe storage, ingredient filtering, nutritional tracking, and workshop enrollments.
 
