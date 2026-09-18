@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Recipe - Coco's Recipes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+        input, textarea { display: block; margin-bottom: 10px; padding: 8px; width: 400px; }
+        button { padding: 10px 20px; background: #5cb85c; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Add a New Recipe</h1>
+    <form method="POST">
+        <input type="text" name="title" placeholder="Recipe Title" required>
+        <input type="text" name="category" placeholder="Category (e.g., Italian, Vegan)" required>
+        <input type="text" name="cooking_time" placeholder="Cooking Time (e.g., 30 mins)" required>
+        <input type="number" name="calories" placeholder="Calories (e.g., 450)" required>
+        <textarea name="ingredients" placeholder="Ingredients (comma-separated)" rows="3" required></textarea>
+        <textarea name="prep_steps" placeholder="Preparation Steps" rows="5" required></textarea>
+        <button type="submit">Save Recipe</button>
+    </form>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>
