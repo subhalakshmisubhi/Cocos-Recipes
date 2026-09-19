@@ -4,8 +4,10 @@
     <title>Coco's Recipes Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
-        h1 { color: #333; }
-        .btn { display: inline-block; padding: 8px 15px; background: #0275d8; color: white; text-decoration: none; border-radius: 4px; margin-bottom: 20px; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h1 { color: #333; margin: 0; }
+        .btn { display: inline-block; padding: 8px 15px; background: #0275d8; color: white; text-decoration: none; border-radius: 4px; }
+        .btn-logout { background: #d9534f; }
         form { margin-bottom: 20px; }
         input[type="text"] { padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
         button { padding: 8px 15px; background: #0275d8; color: white; border: none; border-radius: 4px; cursor: pointer; }
@@ -13,8 +15,12 @@
     </style>
 </head>
 <body>
-    <h1>Coco's Recipes Dashboard</h1>
-    <a href="/add" class="btn">Upload New Recipe</a>
+    <div class="header-bar">
+        <h1>Coco's Recipes Dashboard</h1>
+        <a href="/logout" class="btn btn-logout">Logout</a>
+    </div>
+
+    <a href="/add" class="btn" style="margin-bottom: 20px; display: inline-block;">Upload New Recipe</a>
     <hr>
     
     <form method="GET" action="/">
