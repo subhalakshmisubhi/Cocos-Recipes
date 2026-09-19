@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Recipe - Coco's Recipes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+        form { background: white; padding: 20px; border-radius: 5px; max-width: 600px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #0275d8; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        a { color: #555; text-decoration: none; display: inline-block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Edit Recipe</h1>
+    <form method="POST">
+        <label><strong>Title:</strong></label>
+        <input type="text" name="title" value="{{ recipe['title'] }}" required>
+        
+        <label><strong>Cooking Time:</strong></label>
+        <input type="text" name="cooking_time" value="{{ recipe['cooking_time'] }}">
+        
+        <label><strong>Calories:</strong></label>
+        <input type="text" name="calories" value="{{ recipe['calories'] }}">
+        
+        <label><strong>Ingredients:</strong></label>
+        <textarea name="ingredients" rows="3">{{ recipe['ingredients'] }}</textarea>
+        
+        <label><strong>Preparation Steps:</strong></label>
+        <textarea name="prep_steps" rows="5">{{ recipe['prep_steps'] }}</textarea>
+        
+        <button type="submit">Update Recipe</button>
+    </form>
+    <a href="{{ url_for('index') }}">&larr; Back to Dashboard</a>
+</body>
+</html>
+
