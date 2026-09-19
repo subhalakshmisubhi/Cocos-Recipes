@@ -13,8 +13,8 @@ def index():
     conn = get_db_connection()
     search = request.args.get('search', '')
     if search:
-        recipes = conn.execute('SELECT * FROM recipes WHERE title LIKE ? OR ingredients LIKE ?', 
-                             ('%' + search + '%', '%' + search + '%')).fetchall()
+        query = "SELECT * FROM recipes WHERE title LIKE ? OR ingredients LIKE ?"
+        recipes = conn.execute(query, ('%' + search + '%', '%' + search + '%')).fetchall()
     else:
         recipes = conn.execute('SELECT * FROM recipes').fetchall()
     conn.close()
@@ -24,33 +24,43 @@ def index():
 def add_recipe():
     if request.method == 'POST':
         title = request.form['title']
-        category = request.form['category']
-        prep_steps = request.form['prep_steps']
         cooking_time = request.form['cooking_time']
         calories = request.form['calories']
         ingredients = request.form['ingredients']
-
+        prep_steps = request.form['prep_steps']
+        
         conn = get_db_connection()
-        conn.execute('INSERT INTO recipes (title, category, prep_steps, cooking_time, calories, ingredients) VALUES (?, ?, ?, ?, ?, ?)',
-                     (title, category, prep_steps, cooking_time, calories, ingredients))
+        conn.execute('INSERT INTO recipes (title, cooking_time, calories, ingredients, prep_steps) VALUES (?, ?, ?, ?, ?)',
+                     (title, cooking_time, calories, ingredients, prep_steps))
         conn.commit()
         conn.close()
         return redirect(url_for('index'))
     return render_template('add_recipe.html')
-    from flask import Flask, render_template, request, redirect, url_for
-import sqlite3
 
-app = Flask(__name__)
+@app.route('/edit/<int:id>', methods=('GET', 'POST'))
+def edit_recipe(id):
+    conn = get_db_connection()
+    recipe = conn.execute('SELECT * FROM recipes WHERE id = ?', (id,)).fetchone()
+    
+    if request.method == 'POST':
+        title = request.form['title']
+        cooking_time = request.form['cooking_time']
+        calories = request.form['calories']
+        ingredients = request.form['ingredients']
+        prep_steps = request.form['prep_steps']
+        
+        conn.execute('UPDATE recipes SET title = ?, cooking_time = ?, calories = ?, ingredients = ?, prep_steps = ? WHERE id = ?',
+                     (title, cooking_time, calories, ingredients, prep_steps, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+        
+    conn.close()
+    return render_template('edit_recipe.html', recipe=recipe)
 
-@app.route('/')
-index():
-    # your existing code...
-    pass
-
-# ---> PASTE YOUR NEW /delete/<int:id> ROUTE HERE <---
 @app.route('/delete/<int:id>', methods=('POST',))
 def delete_recipe(id):
-    conn = sqlite3.connect('database.db')
+    conn = get_db_connection()
     conn.execute('DELETE FROM recipes WHERE id = ?', (id,))
     conn.commit()
     conn.close()
@@ -58,19 +68,3 @@ def delete_recipe(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-if __name__ == '__main__':
-    # Auto-initialize database table if it doesn't exist
-    conn = get_db_connection()
-    conn.execute('''CREATE TABLE IF NOT EXISTS recipes (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    title TEXT NOT NULL,
-                    category TEXT NOT NULL,
-                    prep_steps TEXT NOT NULL,
-                    cooking_time TEXT NOT NULL,
-                    calories INTEGER,
-                    ingredients TEXT NOT NULL)''')
-    conn.commit()
-    conn.close()
-    app.run(debug=True)
-
