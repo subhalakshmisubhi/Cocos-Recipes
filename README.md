@@ -10,7 +10,7 @@ A web-based recipe management and culinary learning platform designed to streaml
 
 ## 🛠️ Tech Stack
 * **Backend:** Python (Flask)
-* **Database:** SQLite
+* **Database:** SQL
 * **Frontend:** HTML5, CSS3, JavaScript
 
 ## 📊 System Documentation & Design
